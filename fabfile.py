@@ -34,4 +34,4 @@ def develop(user='vagrant'):
 def deploy(release=''):
     run('uname -a')
     print yellow("ヒント：戻すときは以下のコマンドを実行しましょう")
-    print yellow("fab %s deploy:feature/ABC" % (env.environment))
+    print yellow("fab %s branch:master deploy" % (env.environment))

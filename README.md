@@ -13,6 +13,14 @@ Overview
 
 ## Usage
 
+```bash
+$ fab staging deploy
+```
+
+```bash
+$ fab staging branch:xxxxx deploy
+```
+
 ## Install
 
 ## Contribution
