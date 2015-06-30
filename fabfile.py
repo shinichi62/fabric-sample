@@ -9,7 +9,7 @@ def production(user='develop'):
     env.environment = 'production'
     env.user = user
     env.roledefs.update({
-        'wbb': [''],
+        'web': [''],
         })
 
 @task
@@ -17,7 +17,7 @@ def staging(user='develop'):
     env.environment = 'staging'
     env.user = user
     env.roledefs.update({
-        'wbb': [''],
+        'web': [''],
         })
 
 @task
@@ -25,10 +25,10 @@ def develop(user='vagrant'):
     env.environment = 'develop'
     env.user = user
     env.roledefs.update({
-        'wbb': ['192.168.33.10'],
+        'web': ['192.168.33.10'],
         })
 
-@roles('wbb')
+@roles('web')
 @task
 def deploy(release=''):
     run('uname -a')
