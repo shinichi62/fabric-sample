@@ -3,6 +3,7 @@
 
 from fabric.api import *
 from fabric.colors import red, yellow
+from lib import hipchat
 
 @task
 def production(user='develop'):
