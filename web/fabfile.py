@@ -3,6 +3,9 @@
 
 from fabric.api import *
 from fabric.colors import red, yellow
+
+import os, sys
+sys.path.append(os.pardir)
 from lib import hipchat
 
 @task
@@ -31,7 +34,7 @@ def develop(user='vagrant'):
 
 @roles('web')
 @task
-def deploy(release=''):
+def deploy():
     run('uname -a')
     print yellow("ヒント：戻すときは以下のコマンドを実行しましょう")
     print yellow("fab %s branch:master deploy" % (env.environment))
