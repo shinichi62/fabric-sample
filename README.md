@@ -31,6 +31,10 @@ $ fab staging deploy
 $ fab staging branch:xxxxx deploy
 ```
 
+```bash
+$ fab staging deploy -H host1,host2
+```
+
 ## Install
 
 ## Contribution
