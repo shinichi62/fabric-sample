@@ -7,13 +7,13 @@ Overview
 
 ### Branch Management
 
-feature branch
-↓
-develop branch
-↓
-release branch
-↓
-master branch
+feature branch  
+↓  
+develop branch  
+↓  
+release branch  
+↓  
+master branch  
 
 ## Demo
 
