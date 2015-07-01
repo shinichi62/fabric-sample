@@ -5,6 +5,16 @@ Overview
 
 ## Description
 
+### Branch Management
+
+feature branch
+↓
+develop branch
+↓
+release branch
+↓
+master branch
+
 ## Demo
 
 ## VS.
