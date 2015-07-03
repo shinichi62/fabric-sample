@@ -16,30 +16,33 @@ env.update(load_settings(env.rcfile))
 def production(user='develop'):
     env.environment = 'production'
     env.user = user
-    env.roledefs.update({
-        'web': [''],
-        })
 
 @task
 def staging(user='develop'):
     env.environment = 'staging'
     env.user = user
-    env.roledefs.update({
-        'web': [''],
-        })
 
 @task
 def develop(user='vagrant'):
     env.environment = 'develop'
     env.user = user
-    env.roledefs.update({
-        'web': ['192.168.33.10'],
-        })
 
-@roles('web')
 @task
 def deploy():
     # git clone or git pull
+    path = '/Users/shinichi62/Fabric/tmp'
+    repo_name = 'sandbox'
+    if not os.path.exists(path):
+        os.makedirs(path)
+    if not os.path.exists(path+'/'+repo_name):
+        with lcd(path):
+            local('git clone https://github.com/shinichi62/sandbox.git')
+    else:
+        with lcd(path+'/'+repo_name):
+            local('git fetch --all')
+            local('git reset --hard origin/master')
+            local('git clean -fdx')
+
     # load balancer
     # apache stop
     # backup
