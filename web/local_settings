@@ -1,2 +1,4 @@
-repo_url = https://github.com/shinichi62/fabric-sample.git
-deploy_to = ~/
+REPO_URL = https://github.com/shinichi62/sandbox.git
+BRANCH = master
+DEPLOY_FROM = /Users/shinichi62/Fabric/tmp/sandbox
+DEPLOY_TO = ~/aaa

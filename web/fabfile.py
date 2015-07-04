@@ -29,20 +29,7 @@ def develop(user='vagrant'):
 
 @task
 def deploy():
-    # git clone or git pull
-    path = '/Users/shinichi62/Fabric/tmp'
-    repo_name = 'sandbox'
-    if not os.path.exists(path):
-        os.makedirs(path)
-    if not os.path.exists(path+'/'+repo_name):
-        with lcd(path):
-            local('git clone https://github.com/shinichi62/sandbox.git')
-    else:
-        with lcd(path+'/'+repo_name):
-            local('git fetch --all')
-            local('git reset --hard origin/master')
-            local('git clean -fdx')
-
+    git_latest(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
     # load balancer
     # apache stop
     # backup
@@ -52,8 +39,30 @@ def deploy():
     # batch
 
     run('uname -a')
-    print("repo_url: %s" % (env.repo_url))
-    print("deploy_to: %s" % (env.deploy_to))
+    print("repo_url: %s" % (env.REPO_URL))
+    print("deploy_to: %s" % (env.DEPLOY_TO))
 
     print yellow("ヒント：戻すときは以下のコマンドを実行しましょう")
     print yellow("fab %s branch:master deploy" % (env.environment))
+
+@task
+def branch(branch):
+    env.BRANCH = branch
+
+def git_latest(repo_url, branch, dir):
+    u"""Git から最新のソースを取得する
+
+    Keyword arguments:
+    repo_url -- リポジトリ URL
+    branch -- ブランチ名
+    dir -- クローンするディレクトリパス
+    """
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+    if not os.path.exists(dir + '/.git'):
+        local('git clone %s %s' % (repo_url, dir))
+    else:
+        with lcd(dir):
+            local('git fetch')
+            local('git reset --hard origin/%s' % branch)
+            local('git clean -fdx')
