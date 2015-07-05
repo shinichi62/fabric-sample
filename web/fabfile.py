@@ -6,6 +6,7 @@ import sys
 sys.path.append(os.pardir)
 from fabric.api import *
 from fabric.colors import yellow
+from fabric.contrib.project import rsync_project
 from fabric.main import load_settings
 from lib.git import *
 
@@ -37,6 +38,10 @@ def deploy():
     # apache stop
     # backup
     # deploy
+    rsync_project(remote_dir=env.DEPLOY_TO,
+                  local_dir=env.DEPLOY_FROM,
+                  exclude=('.git'),
+                  delete=True)
     # apache start
     # load balancer
     # batch
