@@ -32,7 +32,7 @@ def develop(user='vagrant'):
 @task
 def deploy():
     u"""デプロイする"""
-    update(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
+    git_update(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
     # load balancer
     # apache stop
     # backup
