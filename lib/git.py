@@ -3,6 +3,7 @@
 
 import os
 from fabric.api import *
+from fabric.colors import yellow
 
 @task
 def branch(branch):
@@ -12,7 +13,7 @@ def branch(branch):
 def update(repo_url, branch, dir):
     u"""Git から最新のソースを取得する"""
     if not os.path.exists(dir):
-        os.makedirs(dir)
+        abort('ディレクトリを作成してください "mkdir %s"' % dir)
     if not os.path.exists(dir + '/.git'):
         local('git clone %s %s' % (repo_url, dir))
     else:
