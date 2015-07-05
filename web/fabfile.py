@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+sys.path.append(os.pardir)
 from fabric.api import *
 from fabric.colors import red, yellow
 from fabric.main import load_settings
-
-import os, sys
-sys.path.append(os.pardir)
-from lib import hipchat
+from lib.git import *
 
 env.rcfile = 'local_settings'
 env.update(load_settings(env.rcfile))
@@ -29,7 +29,7 @@ def develop(user='vagrant'):
 
 @task
 def deploy():
-    git_latest(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
+    update(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
     # load balancer
     # apache stop
     # backup
@@ -38,31 +38,7 @@ def deploy():
     # load balancer
     # batch
 
-    run('uname -a')
-    print("repo_url: %s" % (env.REPO_URL))
-    print("deploy_to: %s" % (env.DEPLOY_TO))
+    #run('uname -a')
 
-    print yellow("ヒント：戻すときは以下のコマンドを実行しましょう")
-    print yellow("fab %s branch:master deploy" % (env.environment))
-
-@task
-def branch(branch):
-    env.BRANCH = branch
-
-def git_latest(repo_url, branch, dir):
-    u"""Git から最新のソースを取得する
-
-    Keyword arguments:
-    repo_url -- リポジトリ URL
-    branch -- ブランチ名
-    dir -- クローンするディレクトリパス
-    """
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-    if not os.path.exists(dir + '/.git'):
-        local('git clone %s %s' % (repo_url, dir))
-    else:
-        with lcd(dir):
-            local('git fetch')
-            local('git reset --hard origin/%s' % branch)
-            local('git clean -fdx')
+    print yellow("ロールバックするときは以下のコマンドを実行しましょう")
+    print yellow("fab -H %s %s branch:master deploy" % (env.hosts, env.environment))
