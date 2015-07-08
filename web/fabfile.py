@@ -5,48 +5,24 @@ import os
 import sys
 sys.path.append(os.pardir)
 from fabric.api import *
-from fabric.colors import yellow
-from fabric.contrib.project import rsync_project
-from fabric.main import load_settings
+from fabric.colors import *
+from fabric.contrib.project import *
+from fabric.main import *
+from config import *
 from lib.git import *
 
-env.update(load_settings('config/common.txt'))
-
-@task
-def production(user='develop'):
-    env.environment = 'production'
-    env.user = user
-    env.update(load_settings('config/production.txt'))
-
-@task
-def staging(user='develop'):
-    env.environment = 'staging'
-    env.user = user
-    env.update(load_settings('config/staging.txt'))
-
-@task
-def develop(user='vagrant'):
-    env.environment = 'develop'
-    env.user = user
-    env.update(load_settings('config/develop.txt'))
+# 共通処理
+common()
 
 @task
 def deploy():
     """デプロイする"""
-    git_update(env.REPO_URL, env.BRANCH, env.DEPLOY_FROM)
-    # load balancer
-    # apache stop
-    # backup
-    # deploy
-    rsync_project(remote_dir=env.DEPLOY_TO,
-                  local_dir=env.DEPLOY_FROM,
+    git_update(env.repo_url, env.branch, env.deploy_from)
+    rsync_project(remote_dir=env.deploy_to,
+                  local_dir=env.deploy_from + '/',
                   exclude=('.git'),
                   delete=True)
-    # apache start
-    # load balancer
-    # batch
-
     #run('uname -a')
 
     print yellow('ロールバックするときは以下のコマンドを実行しましょう')
-    print yellow('fab -H %s %s branch:master deploy' % (env.hosts, env.environment))
+    print yellow('fab -H %s %s branch:master deploy' % (str(env.hosts).replace('[', '').replace(']', ''), env.environment))
