@@ -5,7 +5,6 @@ import os
 from fabric.api import *
 from fabric.colors import yellow
 
-@task
 def branch(branch):
     """ブランチを指定する"""
     env.BRANCH = branch
