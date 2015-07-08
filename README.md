@@ -24,15 +24,15 @@ master branch
 ## Usage
 
 ```bash
-$ fab staging deploy
+$ fab -H host1 staging deploy
 ```
 
 ```bash
-$ fab staging branch:xxxxx deploy
+$ fab -H host1 staging branch:xxxxx deploy
 ```
 
 ```bash
-$ fab staging deploy -H host1,host2
+$ fab -H host1,host2 staging deploy
 ```
 
 ## Install
