@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from config.common import *
-from config.develop import *
-from config.staging import *
-from config.production import *
+from common import common
+from develop import develop
+from staging import staging
+from production import production

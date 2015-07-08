@@ -5,11 +5,10 @@ import os
 import sys
 sys.path.append(os.pardir)
 from fabric.api import *
-from fabric.colors import *
-from fabric.contrib.project import *
-from fabric.main import *
-from config import *
-from lib.git import *
+from fabric.colors import yellow
+from fabric.contrib.project import rsync_project
+from config import common, develop, staging, production
+from lib import branch, git_update, hipchat
 
 # 共通処理
 common()
@@ -25,4 +24,4 @@ def deploy():
     #run('uname -a')
 
     print yellow('ロールバックするときは以下のコマンドを実行しましょう')
-    print yellow('fab -H %s %s branch:master deploy' % (str(env.hosts).replace('[', '').replace(']', ''), env.environment))
+    print yellow('fab -H %s %s branch:master deploy' % (env.hosts, env.environment))
