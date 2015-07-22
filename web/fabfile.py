@@ -37,7 +37,7 @@ def branch(branch):
 @task
 def deploy():
     """デプロイする"""
-    lib.git.git_update(env.repo_url, env.branch, env.deploy_from)
+    lib.git.update(env.repo_url, env.branch, env.deploy_from)
     rsync_project(remote_dir=env.deploy_to,
                   local_dir=env.deploy_from + '/',
                   exclude=('.git'),

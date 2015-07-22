@@ -9,7 +9,7 @@ def branch(branch):
     """ブランチを指定する"""
     env.BRANCH = branch
 
-def git_update(repo_url, branch, dir):
+def update(repo_url, branch, dir):
     """Git から最新のソースを取得する"""
     if not os.path.exists(dir):
         abort('ディレクトリを作成してください "mkdir %s"' % dir)
